@@ -7,6 +7,11 @@ class UserCreateSchema(BaseModel):
     password: str
 
 
+class UserGetSchema(BaseModel):
+    username: str
+    email: EmailStr
+
+
 class TokenSchema(BaseModel):
     access_token: str
     token_type: str
