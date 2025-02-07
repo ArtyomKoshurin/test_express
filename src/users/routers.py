@@ -19,6 +19,7 @@ router = APIRouter(
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependency, create_user_request: UserCreateSchema):
+    """Создание пользователя"""
     create_user = User(
         username=create_user_request.username,
         email=create_user_request.email,
@@ -44,6 +45,7 @@ async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: db_dependency
 ):
+    """Выдача токена пользователю"""
     user = authenticate_user(form_data.username, form_data.password, db)
 
     if not user:

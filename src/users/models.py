@@ -1,11 +1,22 @@
+from typing import Annotated
+
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from database import Base
-from sqlalchemy import Column, String, Integer
+
+
+int_pk = Annotated[int, mapped_column(primary_key=True)]
 
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True, unique=True)
-    username = Column(String, unique=True)
-    email = Column(String, unique=True)
-    hashed_password = Column(String)
+    id: Mapped[int_pk]
+    username: Mapped[str]
+    email: Mapped[str]
+    hashed_password: Mapped[str]
+
+    users_reading: Mapped[list["Book"]] = relationship(
+        back_populates="readers",
+        secondary="book_readers"
+    )
